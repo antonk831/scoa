@@ -1,0 +1,12 @@
+#shuttle-job-add-link-form {
+  list-style-type: none;
+  margin: 1em 0;
+  overflow: hidden;
+  padding: 0 20px;
+}
+#shuttle-job-add-link-form a {
+  background: url("/themes/seven/images/add.png") no-repeat scroll 0 center transparent;
+  line-height: 30px;
+  padding-left: 15px;
+  margin-bottom: 15px;
+}

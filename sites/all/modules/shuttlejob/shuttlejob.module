@@ -1,0 +1,96 @@
+<?php
+
+function shuttlejob_menu() {
+  $items = array();
+  
+  $items['admin/shuttle_job'] = array(
+    'title' => 'Shuttle Job',
+    'description' => '',
+    'page callback' => 'shuttle_job_list',
+    'access arguments' => array('administer shuttlejob'),
+    'weight' => -30,
+    'file' => 'shuttlejob.admin.inc',
+  );
+  $items['admin/shuttle_job/jobs'] = array(
+    'title' => 'Jobs',
+    'access arguments' => array('administer shuttlejob'),
+    'page arguments' => array(3),
+    'type' => MENU_DEFAULT_LOCAL_TASK,
+    'weight' => -30,
+    'file' => 'shuttlejob.admin.inc',
+  );
+  $items['admin/shuttle_job/applications'] = array(
+    'title' => 'Applications',
+    'description' => '',
+    'page callback' => 'shuttle_application_list',
+    'access arguments' => array('administer shuttlejob'),
+    'type' => MENU_LOCAL_TASK,
+    'weight' => -5,
+    'file' => 'shuttlejob.admin.inc',
+  );
+  $items['admin/shuttle_job/job/add'] = array(
+    'title' => 'Job Add',
+    'description' => '',
+    'type' => MENU_CALLBACK,
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('shuttle_job_add_form'),
+    'access arguments' => array('administer shuttlejob'),
+    'file' => 'shuttlejob.admin.inc',
+  );
+  $items['admin/shuttle_job/job/%/edit'] = array(
+    'title' => 'Job Edit',
+    'description' => '',
+    'type' => MENU_CALLBACK,
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('shuttle_job_edit_form', 3),
+    'access arguments' => array('administer shuttlejob'),
+    'file' => 'shuttlejob.admin.inc',
+  );
+  $items['admin/shuttle_job/job/%/delete/confirm'] = array(
+    'title' => 'Job Delete',
+    'description' => '',
+    'type' => MENU_CALLBACK,
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('shuttle_job_delete_confirm', 3),
+    'access arguments' => array('administer shuttlejob'),
+    'file' => 'shuttlejob.admin.inc',
+  );
+  $items['admin/shuttle_job/job/%/delete'] = array(
+    'title' => 'Job Delete',
+    'description' => '',
+    'type' => MENU_CALLBACK,
+    'page callback' => 'shuttle_job_delete_action',
+    'page arguments' => array(3),
+    'access arguments' => array('administer shuttlejob'),
+    'file' => 'shuttlejob.admin.inc',
+  );
+  $items['job/%/apply'] = array(
+    'title' => '',
+    'description' => '',
+    'type' => MENU_CALLBACK,
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('shuttle_job_application_form', 1),
+    'access arguments' => array('access content'),
+    'file' => 'shuttlejob.page.inc',
+  );
+  $items['job/%/applied'] = array(
+    'title' => '',
+    'description' => '',
+    'type' => MENU_CALLBACK,
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('shuttle_job_applied_page', 1),
+    'access arguments' => array('access content'),
+    'file' => 'shuttlejob.page.inc',
+  );
+
+  return $items;
+}
+
+function shuttlejob_theme() {
+  return array_merge(drupal_common_theme(), array(
+    'shuttle_job_dashboard' => array(
+      'variables' => array('theme_groups' => NULL),
+      'file' => 'shuttlejob.admin.inc',
+    ),
+  ));
+}
